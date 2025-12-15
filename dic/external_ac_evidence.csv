@@ -1,0 +1,6 @@
+A,C,evidence_type,direction,effect_measure,effect_estimate,ci_low,ci_high,p_value,strength,year,pmid,source,note
+KL6,AE_ILD,meta_analysis,risk_up,OR,NA,NA,NA,NA,strong,NA,NA,NA,NA
+MALE_SEX,AE_ILD,meta_analysis,risk_up,OR,1.6,1.16,2.21,NA,strong,2023,37434169,BMC Pulm Med 2023 (Xie et al.),RA-ILD; AEリスク↑
+MMP7,PROGRESSION,meta_analysis,risk_up,OR,NA,NA,NA,NA,strong,NA,NA,NA,NA
+SMOKING,AE_ILD,meta_analysis,risk_up,OR,1.5,1.08,2.08,NA,strong,2023,37434169,BMC Pulm Med 2023 (Xie et al.),RA-ILD; AEリスク↑; definite UIPもリスク↑（サブ解析）
+SP_D,AE_ILD,cohort,risk_up,HR,NA,NA,NA,NA,strong,NA,NA,NA,NA

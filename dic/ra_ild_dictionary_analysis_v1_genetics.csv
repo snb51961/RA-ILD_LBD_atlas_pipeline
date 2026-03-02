@@ -103,74 +103,58 @@ B_cell,(?i)\b(B\s*cell[s]?|CD19\+|CD20\+)\b,cell,adaptive
 M2_macrophage,(?i)\b(M2[-\s]?macrophage[s]?|CD163\+|CD206\+)\b,cell,repair/profibrotic
 fibrocyte_cell,(?i)\b(fibrocyte[s]?)\b,cell,stromal precursor
 iBALT_TLS,(?i)\b(iBALT|inducible\s+bronchus[-\s]?associated\s+lymphoid\s+tissue|tertiary\s+lymphoid\s+(structure|follicle)s?)\b,cell,ectopic lymphoid
-ACPA_RF_high2,(?i)(high(ly)?\s+(positive|titer(ed)?)\s+(anti-?CCP|ACPA|RF)|ACPA\s*titers?\s*(>=|>|above)|RF\s*titers?\s*(>=|>|above)),biomarker,serology high-titer alt
-KL6_var,(?i)\b(KL\s*[-–]?\s*6|sialylated\s+KL[-–]?6|MUC1\s*epitope\s*KL[-–]?6)\b,biomarker,alias
-SPD_var,(?i)\b(SP\s*[-–]?\s*D|surfactant\s+protein\s*D)\b,biomarker,alias
-NLR_var,(?i)(neutrophil:?\s*lymphocyte\s*ratio|N:?L\s*ratio),biomarker,alias
-CAR_var,(?i)(CRP:?\s*albumin\s*ratio|CRP\s*/\s*Alb),biomarker,alias
-YAP_TAZ_var,(?i)\b(WWTR1|TAZ|YAP1|Hippo\s+pathway)\b,molecular,alias
-Piezo1_var,(?i)\b(Piezo\s*1)\b,molecular,alias
-mTOR_var,(?i)\b(mTORC1|rapamycin\s+pathway)\b,molecular,alias
-HIF1A_var,(?i)(HIF\s*[-–]?\s*1\s*(alpha|a)|HIF1α),molecular,alias
-Glycolysis_var,(?i)(Warburg\s+effect|aerobic\s+glycolysis),molecular,alias
-Oxidative_stress_var,(?i)(ROS|reactive\s+oxygen\s+species|oxidant\s+stress),molecular,alias
-oral_microbiota_var,(?i)(oral\s+microbiome|periodontal\s+pathogens?|Porphyromonas|Prevotella|Fusobacterium),microbiome,oral ext
-gut_microbiota,(?i)(gut\s+microbiome|intestinal\s+microbiota|enterotype|Bacteroides|Firmicutes|Ruminococcus|Lachnospiraceae),microbiome,gut
-CXCL10_var,(?i)(IFN[-\s]?[γg]\s*(induced|inducible)\s*protein\s*10),biomarker,IFN-γ IP-10 spellings
-CXCL9_var,(?i)(monokine\s*induced\s*by\s*IFN[-\s]?[γg]),biomarker,MIG expanded name
-CXCL13_var,(?i)(B\s*cell\s*attracting\s*chemokine|B\s*cell\s*chemoattractant),biomarker,BLC/BCA-1 spellings
-CCL2_var,(?i)(C-?C\s*motif\s*chemokine\s*2),biomarker,C-C motif form
-CCL18_var,(?i)(pulmonary\s*and\s*activation\s*regulated\s*chemokine),biomarker,PARC long form
-CXCL12_var,(?i)(stromal\s*cell\s*derived\s*factor\s*1\s*alpha|SDF\s*-?1α?),biomarker,SDF-1α form
-CX3CL1_var,(?i)(neurotactin),biomarker,fractalkine alt
-CCL21_var,(?i)(secondary\s*lymphoid\s*tissue\s*chemokine|SLC|6Ckine),biomarker,SLC/6Ckine
-IL8_var,(?i)(CXCL8),biomarker,CXCL8 synonym
-IL13_var,(?i)(IL-?13R|interleukin[-\s]?13\s*receptor),biomarker,receptor mention
-IL17A_var,(?i)(IL-?17R|IL-?17RA?),biomarker,receptor mention
-GM_CSF_var,(?i)(CSF\s*2|colony\s*stimulating\s*factor\s*2),biomarker,synonym
-BAFF_var,(?i)(TNFSF13B|B\s*lymphocyte\s*stimulator|BLyS),biomarker,TNFSF13B/BLyS
-APRIL_var,(?i)(TNFSF13),biomarker,TNFSF13
-sPD1_var,(?i)(PDCD1\s*\(soluble\)|soluble\s*PDCD1),biomarker,gene symbol/soluble form
-sPDL1_var,(?i)(CD274\s*\(soluble\)|soluble\s*PD-?L1),biomarker,gene symbol/soluble form
-MMP7_var,(?i)(metalloproteinase\s*7),biomarker,alt wording
-YKL40_var,(?i)(chitinase\s*3\s*like\s*1|HCgp-39),biomarker,gene alias
-VCAM1_var,(?i)(vascular\s*cell\s*adhesion\s*molecule),biomarker,long form
-ICAM1_var,(?i)(intercellular\s*adhesion\s*molecule),biomarker,long form
-ADMA_var,"(?i)(asymmetric\s*N\s*,?\s*N\s*-?dimethylarginine)",biomarker,biochemical alias
-HE4_var,(?i)(human\s*epididymis\s*protein\s*4|WFDC\s*2),biomarker,gene alias
-CTGF_CCN2_var,(?i)(connective\s*tissue\s*growth\s*factor|CCN\s*2),molecular,matrix factor alias
-WNT_beta_catenin_var,(?i)(WNT/β?-?catenin|canonical\s*WNT),molecular,pathway alias
-PAI1_SERPINE1_var,(?i)(SERPINE\s*1|plasminogen\s*activator\s*inhibitor\s*1),molecular,gene/protein alias
-Endothelin1_var,(?i)(ET-?1|preproendothelin),molecular,vasoactive alias
-SPP1_osteopontin_var,(?i)(secreted\s*phosphoprotein\s*1),molecular,gene name
-Galectin3_var,(?i)(LGALS\s*3|Mac-2),molecular,gene name
-Periostin_var,(?i)(POSTN),biomarker,gene name
-CC16_SCGB1A1_var,(?i)(club\s*cell\s*protein\s*16|uteroglobin),biomarker,alias
-SP_A_var,(?i)(surfactant\s*protein\s*A|SFTPA\s*1|SFTPA\s*2),biomarker,alias
+Cytokine_inflammation,(?i)(IL[-\s]?(1|6|10|17|18|23)|TNF|IFN|TGF|CXCL|CCL),molecular,aggregated cytokine signature
+Fibrosis_pathway,(?i)(TGF|Smad|α\s*SMA|collagen|fibronectin|periostin|CTGF|MMP|YAP|TAZ),molecular,fibrosis signaling
+Immune_checkpoint,(?i)(PD[-\s]?1|PD[-\s]?L1|CTLA|TIM3|LAG3),molecular,checkpoint molecules
 Nrf2_KEAP1,(?i)\b(NRF2|NFE2L2)\b|\bKEAP1\b,molecular,oxidative-stress response master regulator
-NOX_enzymes,(?i)\b(NOX(1|2|4)|NADPH\s*oxidase)\b,molecular,ROS generation (NOX1/2/4)
-SOD_family,(?i)\b(SOD\s*(1|2)|superoxide\s*dismutase)\b,molecular,antioxidant enzyme
-Catalase,(?i)\bcatalase\b,molecular,antioxidant enzyme
-GPX_family,(?i)\b(GPX\s*(1|4)?|glutathione\s*peroxidase)\b,molecular,antioxidant enzyme
-Thioredoxin,(?i)\b(thioredoxin|\bTXN\b)\b,molecular,redox system
-Peroxiredoxin,(?i)\b(peroxiredoxin|\bPRDX\s*(1|2|3|4|5|6))\b,molecular,redox enzyme
-mtROS,(?i)\b(mitochondrial\s*ROS|\bmtROS\b|mitochondrial\s*reactive\s*oxygen)\b,molecular,organelle-specific ROS
-HMOX1_HO1,(?i)\b(HMOX1|heme\s*oxygenase[-\s]*1|HO-?1)\b,biomarker,stress-inducible enzyme (HO-1)
-F2_isoprostane,(?i)\b(8[-\s]?iso\s*PGF2(?:α|a)?|F2[-\s]?isoprostane(s)?)\b,biomarker,lipid peroxidation marker
-MDA_marker,(?i)\b(malondialdehyde|\bMDA\b)\b,biomarker,lipid peroxidation
-HNE_4HNE,(?i)\b(4[-\s]?hydroxynonenal|\b4[-\s]?HNE\b)\b,biomarker,lipid peroxidation adduct
-GSH_GSSG_ratio,(?i)\b(GSH\s*/\s*GSSG|glutathione\s*(reduced|oxidized)|\bGSSG\b)\b,biomarker,redox status
-8OHdG,(?i)\b(8[-\s]?OHdG|8[-\s]?oxo[-\s]?dG|8[-\s]?hydroxydeoxyguanosine)\b,biomarker,DNA oxidation
-MPO,(?i)\b(myeloperoxidase|\bMPO\b)\b,biomarker,neutrophil enzyme; ROS/NETs axis
-mtDNA_damage,(?i)\b(mitochondrial\s*DNA\s*(damage|oxidation)|mtDNA\s*damage)\b,biomarker,oxidative injury
-Nrf2_KEAP1_var,(?i)\b(Nrf2\s*pathway|antioxidant\s*response\s*element|\bARE\b)\b,molecular,ARE/antioxidant response
-NOX_enzymes_var,(?i)\b(gp91phox|p22phox|p47phox|p67phox)\b,molecular,NOX subunits
-SOD_family_var,(?i)\b(MnSOD|CuZnSOD)\b,molecular,SOD variants
-GPX_family_var,(?i)\b(GPX1|GPX4)\b,molecular,GPX isoforms
-Peroxiredoxin_var,(?i)\b(PRDX1|PRDX2|PRDX3|PRDX4|PRDX5|PRDX6)\b,molecular,PRDX isoforms
-F2_isoprostane_var,(?i)\b(isoprostane(s)?|\bIPF2\b)\b,biomarker,isoprostane generic
-MDA_marker_var,(?i)\b(TBARS|thiobarbituric\s*acid\s*reactive\s*substances)\b,biomarker,assay term
-HNE_4HNE_var,(?i)\b(HNE[-\s]*adduct(s)?)\b,biomarker,adduct wording
-8OHdG_var,(?i)\b(8[-\s]?oxoG)\b,biomarker,alt DNA ox form
-GSH_GSSG_ratio_var,(?i)\b(total\s*glutathione|oxidized\s*glutathione)\b,biomarker,assay wording
-MPO_var,(?i)\b(peroxidase\s*activity\b)\b,biomarker,functional wording
+Nrf2_KEAP1_var,(?i)\b(Nrf2\s*pathway|antioxidant\s*response\s*element)\b,molecular,antioxidant response (no ARE token)
+Oxidative_stress_pathway,(?i)(NRF2|NFE2L2|KEAP1|\bGPX\b|\bSOD\b|catalase|\bMPO\b|\bROS\b|oxidative\s+stress|oxidant\s+stress|\b4HNE\b|\b8OHdG\b|\bMDA\b),molecular,ROS/oxidative stress signature (word-bounded)
+FVC_decline,(FVC AND decline),outcome,functional outcome
+DLCO_decline,(DLCO AND decline),outcome,functional outcome
+PPF,(?i)\b(PPF|progressive\s+pulmonary\s+fibrosis)\b,outcome,vNext: PPF terminology
+PF_ILD,(?i)\b(PF-?ILD|progressive\s+fibrosing\s+interstitial\s+lung\s+disease)\b,outcome,vNext: PF-ILD terminology
+AE_interstitial_pneumonia,(?i)\b(acute\s+exacerbation\s+of\s+interstitial\s+(pneumonia|lung\s+disease))\b,outcome,vNext: AE wording
+acute_respiratory_deterioration,(?i)\b(acute\s+respiratory\s+deterioration)\b,outcome,vNext: AE synonym (avoid ARD acronym)
+mosaic_attenuation,(?i)\b(mosaic\s+attenuation)\b,radiology,vNext: small airways / ventilation heterogeneity
+air_trapping,(?i)\b(air\s+trapping)\b,radiology,vNext: small airways
+tree_in_bud,(?i)\b(tree[-\s]?in[-\s]?bud)\b,radiology,vNext: bronchiolitis pattern
+follicular_bronchiolitis,(?i)\b(follicular\s+bronchiolitis)\b,airway,vNext: RA-associated airway disease
+bronchiolitis,(?i)\b(bronchiolitis)\b,airway,vNext: airway inflammation
+PPFE,(?i)\b(PPFE|pleuroparenchymal\s+fibroelastosis)\b,pattern,vNext: fibrosing phenotype
+LIP,(?i)\b(LIP|lymphocytic\s+interstitial\s+pneumonia)\b,pattern,vNext: lymphoid ILD pattern
+DAD,(?i)\b(DAD|diffuse\s+alveolar\s+damage)\b,pattern,vNext: acute lung injury pathology
+fibroblastic_foci,(?i)\b(fibroblastic\s+foci)\b,pattern,vNext: UIP pathology feature
+RB_ILD,(?i)\b(RB-?ILD|respiratory\s+bronchiolitis[-\s]?associated\s+interstitial\s+lung\s+disease)\b,pattern,vNext: smoking-related ILD
+DIP,(?i)\b(DIP|desquamative\s+interstitial\s+pneumonia)\b,pattern,vNext: smoking-related ILD
+GAP_index,(?i)\b(GAP\s+(index|stage))\b,activity,vNext: prognostic index
+CPI_index,(?i)\b(composite\s+physiologic\s+index|\bCPI\b)\b,activity,vNext: physiologic severity index
+respiratory_failure,(?i)\b(respiratory\s+failure)\b,outcome,vNext: severe event
+LTOT,(?i)\b(long[-\s]?term\s+oxygen\s+therapy|\bLTOT\b)\b,outcome,vNext: oxygen requirement
+oxygen_requirement,(?i)\b(oxygen\s+requirement|supplemental\s+oxygen)\b,outcome,vNext: oxygen need
+mechanical_ventilation,(?i)\b(mechanical\s+ventilation|intubat(e|ion))\b,outcome,vNext: critical care
+ICU_admission,(?i)\b(ICU\s+admission|intensive\s+care\s+unit)\b,outcome,vNext: critical care
+disease_duration,(?i)\b(disease\s+duration|duration\s+of\s+rheumatoid\s+arthritis|RA\s+duration)\b,host,vNext: RA duration
+GERD,(?i)\b(GERD|gastroesophageal\s+reflux)\b,complication,vNext: comorbidity
+COPD,(?i)\b(COPD|chronic\s+obstructive\s+pulmonary\s+disease|emphysema)\b,complication,vNext: obstructive lung disease
+glucocorticoid,(?i)\b(prednisone|prednisolone|glucocorticoid(s)?|corticosteroid(s)?)\b,drug,vNext: steroid therapy
+drug_induced_ILD,(?i)\b(drug[-\s]?induced\s+(interstitial\s+lung\s+disease|pneumonitis)|pneumonitis)\b,event,vNext: adverse event / DILD
+TERC,(?i)\bTERC\b|\btelomerase\s+RNA\s+component\b,gene,vNext-genetics: telomere
+RTEL1,(?i)\bRTEL1\b|\bregulator\s+of\s+telomere\s+elongation\b,gene,vNext-genetics: telomere
+PARN,(?i)\bPARN\b|\bpoly\(A\)-specific\s+ribonuclease\b,gene,vNext-genetics: telomere
+DKC1,(?i)\bDKC1\b|\bdyskerin\b,gene,vNext-genetics: telomere
+TINF2,(?i)\bTINF2\b|\bTRF1[-\s]?interacting\s+nuclear\s+factor\s+2\b,gene,vNext-genetics: telomere
+POT1,(?i)\bPOT1\b|\bprotection\s+of\s+telomeres\s+1\b,gene,vNext-genetics: telomere
+NAF1,(?i)\bNAF1\b|\bNuclear\s+Assembly\s+Factor\s+1\b,gene,vNext-genetics: telomere
+SFTPC,(?i)\bSFTPC\b|\bsurfactant\s+protein\s+C\b,gene,vNext-genetics: surfactant
+SFTPA1,(?i)\bSFTPA1\b|\bsurfactant\s+protein\s+A1\b,gene,vNext-genetics: surfactant
+SFTPA2,(?i)\bSFTPA2\b|\bsurfactant\s+protein\s+A2\b,gene,vNext-genetics: surfactant
+SFTPB,(?i)\bSFTPB\b|\bsurfactant\s+protein\s+B\b,gene,vNext-genetics: surfactant
+ABCA3,(?i)\bABCA3\b|\bATP[-\s]?binding\s+cassette\s+subfamily\s+A\s+member\s+3\b,gene,vNext-genetics: surfactant
+NKX2-1,(?i)\bNKX2-1\b|\bTTF-?1\b|\bthyroid\s+transcription\s+factor\s+1\b,gene,vNext-genetics: surfactant
+TOLLIP,(?i)\bTOLLIP\b|\btoll[-\s]?interacting\s+protein\b,gene,vNext-genetics: IPF GWAS
+DSP,(?i)\bDSP\b|\bdesmoplakin\b,gene,vNext-genetics: IPF GWAS
+DPP9,(?i)\bDPP9\b|\bdipeptidyl\s+peptidase\s+9\b,gene,vNext-genetics: IPF GWAS
+AKAP13,(?i)\bAKAP13\b|\bA[-\s]?kinase\s+anchoring\s+protein\s+13\b,gene,vNext-genetics: IPF GWAS
+KIF15,(?i)\bKIF15\b|\bkinesin\s+family\s+member\s+15\b,gene,vNext-genetics: IPF GWAS
+FAM13A,(?i)\bFAM13A\b|\bfamily\s+with\s+sequence\s+similarity\s+13\s+member\s+A\b,gene,vNext-genetics: IPF GWAS
+DEPTOR,(?i)\bDEPTOR\b|\bDEP\s+domain\s+containing\s+mTOR[-\s]?interacting\s+protein\b,gene,vNext-genetics: IPF GWAS/immune-metabolic

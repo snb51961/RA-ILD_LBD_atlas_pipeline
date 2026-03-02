@@ -1,6 +1,6 @@
 {\rtf1\ansi\ansicpg932\cocoartf2822
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\froman\fcharset0 Times-Roman;\f2\fmodern\fcharset0 Courier;
-\f3\fmodern\fcharset0 Courier-Bold;}
+\f3\fnil\fcharset0 Menlo-Regular;\f4\fmodern\fcharset0 Courier-Bold;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
 {\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid2\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid1}
@@ -11,12 +11,12 @@
 {\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid501\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid502\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid6}
 {\list\listtemplateid7\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid601\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid7}}
 {\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}{\listoverride\listid7\listoverridecount0\ls7}}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\paperw11900\paperh16840\margl1440\margr1440\vieww27320\viewh23180\viewkind0
 \deftab720
 \pard\pardeftab720\sa321\partightenfactor0
 
 \f0\b\fs48 \cf0 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 RA-ILD Literature-Based Discovery (ABC + Signed Effects) \'97 Public R Code\
+RA-ILD Literature-Based Discovery (ABC + Signed Effects) \'97 Public R Code\
 \pard\pardeftab720\sa240\partightenfactor0
 
 \f1\b0\fs24 \cf0 This repository provides a reproducible R pipeline for literature-based discovery (LBD) in rheumatoid arthritis\'96associated interstitial lung disease (RA-ILD). The pipeline retrieves PubMed records, builds document-level term-hit matrices using a curated dictionary, derives ABC triads and association statistics, and generates publication figures (Fig 2\'966), including a rule-based signed-effect summary and a biomarker evidence atlas.\
@@ -25,26 +25,28 @@
 \f0\b\fs36 \cf0 Repository contents\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
 \ls1\ilvl0
-\f2\b0\fs26 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 R/
+\f2\b0\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+R/
 \f1\fs24  \'97 scripts (00\'9613) to run the pipeline and generate figures\
 \ls1\ilvl0
-\f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 dic/
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+dic/
 \f1\fs24  \'97 curated dictionary\
 \pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
 \ls1\ilvl1
-\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 ra_ild_dictionary_analysis_v1_genetics.csv
+\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u9702 
+\f2 	}\expnd0\expndtw0\kerning0
+ra_ild_dictionary_analysis_v1_genetics.csv
 \f1\fs24 \
 \pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
 \ls1\ilvl0
-\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 out/
+\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+out/
 \f1\fs24  \'97 outputs (figures/tables/logs; created automatically)\
 \ls1\ilvl0
-\f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 data_raw/
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+data_raw/
 \f1\fs24 , 
 \f2\fs26 data_proc/
 \f1\fs24  \'97 intermediate files (created automatically; typically git-ignored)\
@@ -53,10 +55,10 @@
 \f0\b\fs36 \cf0 Requirements\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
 \ls2\ilvl0
-\f1\b0\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 R (>= 4.2 recommended)\
-\ls2\ilvl0\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Required R packages are installed automatically by scripts where possible (or see 
+\f1\b0\fs24 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+R (>= 4.2 recommended)\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Required R packages are installed automatically by scripts where possible (or see 
 \f2\fs26 renv.lock
 \f1\fs24  if provided).\
 \pard\pardeftab720\sa298\partightenfactor0
@@ -67,20 +69,20 @@
 \fs28 \cf0 Option A (recommended): run from the project root\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
 \ls3\ilvl0
-\f1\b0\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	1	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Download/clone this repository to any location.\
-\ls3\ilvl0\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Set your working directory to the project root (the folder that contains 
+\f1\b0\fs24 \cf0 \kerning1\expnd0\expndtw0 {\listtext	1	}\expnd0\expndtw0\kerning0
+Download/clone this repository to any location.\
+\ls3\ilvl0\kerning1\expnd0\expndtw0 {\listtext	2	}\expnd0\expndtw0\kerning0
+Set your working directory to the project root (the folder that contains 
 \f2\fs26 R/
 \f1\fs24  and 
 \f2\fs26 dic/
 \f1\fs24 ).\
-\ls3\ilvl0\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	3	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Run scripts in order.\
+\ls3\ilvl0\kerning1\expnd0\expndtw0 {\listtext	3	}\expnd0\expndtw0\kerning0
+Run scripts in order.\
 \pard\pardeftab720\sa280\partightenfactor0
 
 \f0\b\fs28 \cf0 Option B: run from anywhere using 
-\f3\fs30\fsmilli15210 RAILD_ROOT
+\f4\fs30\fsmilli15210 RAILD_ROOT
 \f0\fs28 \
 \pard\pardeftab720\sa240\partightenfactor0
 
@@ -94,69 +96,74 @@ In R:\
 \f0\b\fs36 \cf0 Typical run order\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
 \ls4\ilvl0
-\f2\b0\fs26 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	1	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 00_setup_Final.R
+\f2\b0\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	1	}\expnd0\expndtw0\kerning0
+00_setup_Final.R
 \f1\fs24  \'97 global configuration (directories/tags; corpus window)\
 \ls4\ilvl0
-\f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 01_FetchPubMed_Final.R
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	2	}\expnd0\expndtw0\kerning0
+01_FetchPubMed_Final.R
 \f1\fs24  \'97 retrieve PubMed records and write 
 \f2\fs26 articles_*.csv
 \f1\fs24  + PMID list\
 \ls4\ilvl0
-\f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	3	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 02_BuildHitsMatrix_Final.R
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	3	}\expnd0\expndtw0\kerning0
+02_BuildHitsMatrix_Final.R
 \f1\fs24  \'97 build document \'d7 term hit matrix\
 \ls4\ilvl0
-\f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	4	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 03_CoocAndCollocation_Final.R
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	4	}\expnd0\expndtw0\kerning0
+03_CoocAndCollocation_Final.R
 \f1\fs24  \'97 co-mention / collocation preprocessing\
 \ls4\ilvl0
-\f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	5	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 04_ABC_Rankings_Final.R
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	5	}\expnd0\expndtw0\kerning0
+04_ABC_Rankings_Final.R
 \f1\fs24  \'97 construct ABC triads and rankings\
 \ls4\ilvl0
-\f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	6	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 05_AC_NPMI_Final.R
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	6	}\expnd0\expndtw0\kerning0
+05_AC_NPMI_Final.R
 \f1\fs24  \'97 association statistics (NPMI, lift, OR, q-values)\
 \ls4\ilvl0
-\f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	7	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 06_Fig5_SignedEffects_Final.R
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	7	}\expnd0\expndtw0\kerning0
+06_Fig5_SignedEffects_Final.R
 \f1\fs24  \'97 rule-based signed-effect extraction (AE-ILD/progression/mortality)\
-\ls4\ilvl0\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	8	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Optional:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
+\ls4\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	8	}\expnd0\expndtw0\kerning0
+Optional:\
 \pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
 \ls4\ilvl1
-\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 07_AE_Ratio_TrendBreak_Final.R
+\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u9702 
+\f2 	}\expnd0\expndtw0\kerning0
+07_AE_Ratio_TrendBreak_Final.R
 \f1\fs24  \'97 trend-break analysis\
 \ls4\ilvl1
-\f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 08_Sensitivity_Nonreview_Final.R
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u9702 
+\f2 	}\expnd0\expndtw0\kerning0
+08_Sensitivity_Nonreview_Final.R
 \f1\fs24  \'97 sensitivity analysis excluding review/case-report\
 \pard\pardeftab720\sa280\partightenfactor0
 
 \f0\b\fs28 \cf0 Figure scripts (final versions used in the manuscript)\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
 \ls5\ilvl0
-\f1\b0\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Fig 2: 
+\f1\b0\fs24 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Fig 2: 
 \f2\fs26 09_Fig2_Topics_Final_v2.R
 \f1\fs24  (consistent topic colors + combined layout)\
-\ls5\ilvl0\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Fig 3: 
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Fig 3: 
 \f2\fs26 10_Fig3_AC_Coherence_Final.R
 \f1\fs24 \
-\ls5\ilvl0\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Fig 4: 
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Fig 4: 
 \f2\fs26 11_Fig4_ABC_Final_v3_moreTriads.R
 \f1\fs24 \
-\ls5\ilvl0\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Fig 5: 
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Fig 5: 
 \f2\fs26 12_Fig5_SignedEffects_Summary_Final.R
 \f1\fs24 \
-\ls5\ilvl0\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Fig 6: 
+\ls5\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Fig 6: 
 \f2\fs26 13_Fig6_BiomarkerEvidenceAtlas_Final_FINAL.R
 \f1\fs24 \
 \pard\pardeftab720\sa298\partightenfactor0
@@ -179,35 +186,41 @@ In R:\
 \f1\b0\fs24 \cf0 We provide the following supplementary items used for reproducibility:\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
 \ls6\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Supplementary Table S1
+\f0\b \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Supplementary Table S1
 \f1\b0 \
 \pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
 \ls6\ilvl1
-\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 supplementary/Supplementary_Table_S1_PubMed_Retrieval_Metadata.docx
+\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u9702 
+\f2 	}\expnd0\expndtw0\kerning0
+supplementary/Supplementary_Table_S1_PubMed_Retrieval_Metadata.docx
 \f1\fs24 \uc0\u8232 (PubMed query, fixed time window, and retrieval date)\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
 \ls6\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Supplementary Data S1 (PMID list; exact corpus definition)
+\f0\b \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Supplementary Data S1 (PMID list; exact corpus definition)
 \f1\b0 \
 \pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
 \ls6\ilvl1
-\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 supplementary/Supplementary_Data_S1_pmids.csv
+\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u9702 
+\f2 	}\expnd0\expndtw0\kerning0
+supplementary/Supplementary_Data_S1_pmids.csv
 \f1\fs24 \uc0\u8232 (originally generated as 
 \f2\fs26 pmids_pm_1980_20251231.csv
 \f1\fs24 )\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
 \ls6\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Supplementary Data S2 (signed-effects summary used for Fig 5\'966)
+\f0\b \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Supplementary Data S2 (signed-effects summary used for Fig 5\'966)
 \f1\b0 \
 \pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
 \ls6\ilvl1
-\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 supplementary/Supplementary_Data_S2_signed_effects_summary_withCI.csv
+\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u9702 
+\f2 	}\expnd0\expndtw0\kerning0
+supplementary/Supplementary_Data_S2_signed_effects_summary_withCI.csv
 \f1\fs24 \uc0\u8232 (originally generated as 
 \f2\fs26 signed_effects_summary_withCI_pm_1980_20251231__analysis_v1_genetics.csv
 \f1\fs24 )\
@@ -216,10 +229,10 @@ In R:\
 \f0\b\fs36 \cf0 Notes\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
 \ls7\ilvl0
-\f1\b0\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 This pipeline is intended for hypothesis generation (LBD). Ranking scores and signed effects are heuristic summaries and are not formal confirmatory inference.\
-\ls7\ilvl0\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 PubMed contents can change over time; for exact reproducibility of the corpus, use the provided PMID list (Supplementary Data S1).\
+\f1\b0\fs24 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+This pipeline is intended for hypothesis generation (LBD). Ranking scores and signed effects are heuristic summaries and are not formal confirmatory inference.\
+\ls7\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+PubMed contents can change over time; for exact reproducibility of the corpus, use the provided PMID list (Supplementary Data S1).\
 \pard\pardeftab720\sa298\partightenfactor0
 
 \f0\b\fs36 \cf0 Citation\

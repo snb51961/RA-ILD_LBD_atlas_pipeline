@@ -1,120 +1,181 @@
-# RA-ILD Literature-Based Discovery (ABC + Signed Effects) — Public R Code
+# RA-ILD literature-derived atlas pipeline
 
-This repository provides a reproducible R pipeline for literature-based discovery (LBD) in rheumatoid arthritis–associated interstitial lung disease (RA-ILD).
+This repository contains the R scripts, curated dictionary, and released datasets used for the RA-ILD literature-derived atlas manuscript.
 
-The pipeline retrieves PubMed records, builds document-level term-hit matrices using a curated dictionary, derives ABC triads and association statistics, and generates publication figures (Fig 2–6), including a rule-based signed-effect summary and a biomarker evidence atlas.
+## Repository structure
 
----
+```text
+R/
+  00_setup.R
+  01_FetchPubMed.R
+  02_BuildHitsMatrixl.R
+  03_CoocAndCollocation.R
+  04_ABC_Rankings.R
+  05_AC_NPMI.R
+  06_SignedEffectsl.R
+  07_AE_Ratio_TrendBreakl.R
+  08_Supp_Nonreview_Sensitivity.R
+  09_SuppFigS1_Topics_TemporalEvolution.R
+  10_SuppFigS2_AC_Coherence.R
+  11_SuppFigS3_ABC_Exhaustive.R
+  12_Fig2_AEILD_Directional_and_Bridge.R
+  13_Fig3_Biomarker_Atlas.R
+  13_Fig3_Biomarker_Atlas_renumbered.R
+  14a_Fig4_Integrated_Outcome_Synthesis_fully_datadriven.R
+  14b_Fig4_Integrated_Outcome_Synthesis.R
+  15_Supp_DesignTier_Weighted_Sensitivity.R
+  16_SuppFigS4_CaseReport_ABC_Only.R
+  17_TimeSlice_BuildAndAnalyze.R
+  18_TimeSlice_CompareAndSummarize.R
 
-## Repository Contents
+dic/
+  ra_ild_dictionary_analysis_v1_genetics.csv
 
-- **R/** — scripts (00–13) to run the pipeline and generate figures  
-- **dic/** — curated dictionary  
-  - `ra_ild_dictionary_analysis_v1_genetics.csv`  
-- **out/** — outputs (figures/tables/logs; created automatically)  
-- **data_raw/**, **data_proc/** — intermediate files (created automatically; typically git-ignored)
-
----
-
-## Requirements
-
-- **R (>= 4.2 recommended)**  
-
-Required R packages are installed automatically by scripts where possible (or see `renv.lock` if provided).
-
----
-
-## How to Run
-
-### Option A (recommended): Run from the project root
-
-1. Download/clone this repository to any location.
-2. Set your working directory to the project root (the folder that contains `R/` and `dic/`).
-3. Run scripts in order.
-
----
-
-### Option B: Run from anywhere using `RAILD_ROOT`
-
-Set an environment variable pointing to the project root.
-
-In R:
-
-```r
-Sys.setenv(RAILD_ROOT = "/path/to/this/repo")
+Dataset/
+  Dataset_S1_pmids1.csv
+  Dataset_S2_signed_effects_summary_withCI.csv
 ```
 
----
+## Included released datasets
 
-## Typical Run Order
+### Dataset S1
+**File name:** `Dataset_S1_pmids1.csv`  
+PMID-level frozen manuscript corpus file corresponding to the fixed PubMed retrieval window and post-retrieval original-article corpus definition.
 
-1. `00_setup_Final.R` — global configuration (directories/tags; corpus window)  
-2. `01_FetchPubMed_Final.R` — retrieve PubMed records and write `articles_*.csv` + PMID list  
-3. `02_BuildHitsMatrix_Final.R` — build document × term hit matrix  
-4. `03_CoocAndCollocation_Final.R` — co-mention / collocation preprocessing  
-5. `04_ABC_Rankings_Final.R` — construct ABC triads and rankings  
-6. `05_AC_NPMI_Final.R` — association statistics (NPMI, lift, OR, q-values)  
-7. `06_Fig5_SignedEffects_Final.R` — rule-based signed-effect extraction (AE-ILD / progression / mortality)
+This publication-facing dataset corresponds to the internal pipeline output:
+- `pmids_pm_1980_20251231.csv`
 
----
+### Dataset S2
+**File name:** `Dataset_S2_signed_effects_summary_withCI.csv`  
+Signed-effect summary dataset underlying the outcome-centred directional summaries reported in the manuscript.
 
-### Optional Analyses
+This publication-facing dataset corresponds to the internal pipeline output:
+- `signed_effects_summary_withCI_pm_1980_20251231__analysis_v1_genetics.csv`
 
-- `07_AE_Ratio_TrendBreak_Final.R` — trend-break analysis  
-- `08_Sensitivity_Nonreview_Final.R` — sensitivity analysis excluding review / case-report  
+## Curated dictionary
 
----
+### Dictionary file
+**File name:** `dic/ra_ild_dictionary_analysis_v1_genetics.csv`
 
-## Figure Scripts (Final Versions Used in the Manuscript)
+This is the fixed analysis dictionary used throughout the released pipeline. It contains:
+- canonical terms
+- regular expressions
+- semantic classes
+- ABC roles used in downstream interpretation
 
-- **Fig 2:** `09_Fig2_Topics_Final_v2.R` (consistent topic colors + combined layout)  
-- **Fig 3:** `10_Fig3_AC_Coherence_Final.R`  
-- **Fig 4:** `11_Fig4_ABC_Final_v3_moreTriads.R`  
-- **Fig 5:** `12_Fig5_SignedEffects_Summary_Final.R`  
-- **Fig 6:** `13_Fig6_BiomarkerEvidenceAtlas_Final_FINAL.R`  
+The released analyses are tied to this dictionary version. For reproducibility, use this file unchanged.
 
----
+## Script overview
 
-## Outputs
+### Core pipeline
+- **00_setup.R**  
+  Defines project root, corpus tag, dictionary tag, output directories, and shared logging helpers.
 
-Figures and tables are written under `out/` (exact subfolders depend on tags).
+- **01_FetchPubMed.R**  
+  Performs broad PubMed retrieval, applies post-retrieval publication-type classification, and writes the main original-article corpus plus auxiliary corpora.
 
-Some scripts also write reproducibility logs (including `sessionInfo()` and key input file metadata) under:
+- **02_BuildHitsMatrixl.R**  
+  Builds the dictionary-based `hit__` matrix from the original-article corpus, including `_var` parent aggregation and consistency fixes.
 
-```
-out/.../log/
-```
+- **03_CoocAndCollocation.R**  
+  Computes class-vs-outcome co-occurrence tables and optional bigram/trigram collocations.
 
----
+- **04_ABC_Rankings.R**  
+  Computes AE-ILD-centred ABC triad rankings, evidence PMIDs, and network edges.
 
-## Supplementary Files (Manuscript Submission + GitHub)
+- **05_AC_NPMI.R**  
+  Computes A↔C co-occurrence probabilities, lift, and NPMI for downstream figures.
 
-We provide the following supplementary items used for reproducibility:
+- **06_SignedEffectsl.R**  
+  Performs rule-based signed-effect extraction from title/abstract contexts and writes sentence-level, article-level, summary, numeric, and biomarker outputs.
 
-### Supplementary Table S1  
-`supplementary/Supplementary_Table_S1_PubMed_Retrieval_Metadata.docx`  
-(PubMed query, fixed time window, and retrieval date)
+- **07_AE_Ratio_TrendBreakl.R**  
+  Detects changepoints in yearly AE-ILD ratios for top A terms.
 
-### Supplementary Data S1 (PMID list; exact corpus definition)  
-`supplementary/Supplementary_Data_S1_pmids.csv`  
-(originally generated as `pmids_pm_1980_20251231.csv`)
+- **08_Supp_Nonreview_Sensitivity.R**  
+  Computes non-review / non-case-report drug–outcome co-occurrence summaries.
 
-### Supplementary Data S2 (Signed-Effects Summary Used for Fig 5–6)  
-`supplementary/Supplementary_Data_S2_signed_effects_summary_withCI.csv`  
-(originally generated as  
-`signed_effects_summary_withCI_pm_1980_20251231__analysis_v1_genetics.csv`)
+### Figure and supplementary scripts
+- **09_SuppFigS1_Topics_TemporalEvolution.R**  
+  Generates topic-model outputs and the temporal evolution figure.
 
----
+- **10_SuppFigS2_AC_Coherence.R**  
+  Generates supplementary A↔C coherence heatmaps and scatterplots.
 
-## Notes
+- **11_SuppFigS3_ABC_Exhaustive.R**  
+  Generates the full AE-ILD-centred ABC supplementary figure.
 
-This pipeline is intended for hypothesis generation (LBD).  
-Ranking scores and signed effects are heuristic summaries and are not formal confirmatory inference.
+- **12_Fig2_AEILD_Directional_and_Bridge.R**  
+  Generates the main Figure 2 panels combining signed effects and AE-ILD bridge summaries.
 
-PubMed contents can change over time; for exact reproducibility of the corpus, use the provided PMID list (Supplementary Data S1).
+- **13_Fig3_Biomarker_Atlas.R**  
+  Main biomarker atlas script and atlas export.
 
----
+- **13_Fig3_Biomarker_Atlas_renumbered.R**  
+  Renumbered figure script version used for manuscript figure ordering.
 
-## Citation
+- **14a_Fig4_Integrated_Outcome_Synthesis_fully_datadriven.R**  
+  Primary Figure 4 synthesis script. Selects hotspot and biomarker/exploratory terms from analysis outputs and writes provenance tables.
 
-If you use this code or the released corpus definition, please cite the accompanying manuscript and the repository release (e.g., Zenodo DOI if available).
+- **14b_Fig4_Integrated_Outcome_Synthesis.R**  
+  Refined manuscript-facing Figure 4 layout script. This is a presentation-oriented version derived from the analytical outputs and is not the main provenance-generating script.
+
+- **15_Supp_DesignTier_Weighted_Sensitivity.R**  
+  Generates design-tier weighted sensitivity outputs and Supplementary Tables S2–S5.
+
+- **16_SuppFigS4_CaseReport_ABC_Only.R**  
+  Generates the exploratory case-report AE-ILD ABC supplementary figure from case-report-specific outputs.
+
+- **17_TimeSlice_BuildAndAnalyze.R**  
+  Builds discovery/holdout/full temporal slices and computes grouped slice outputs.
+
+- **18_TimeSlice_CompareAndSummarize.R**  
+  Compares discovery vs holdout outputs and writes the temporal holdout summary and revised Supplementary Figure S5.
+
+## Recommended run order
+
+For the main released pipeline, the practical execution order is:
+
+1. `00_setup.R`
+2. `01_FetchPubMed.R`
+3. `02_BuildHitsMatrixl.R`
+4. `03_CoocAndCollocation.R`
+5. `04_ABC_Rankings.R`
+6. `05_AC_NPMI.R`
+7. `06_SignedEffectsl.R`
+8. `07_AE_Ratio_TrendBreakl.R`
+9. `08_Supp_Nonreview_Sensitivity.R`
+10. `09_SuppFigS1_Topics_TemporalEvolution.R`
+11. `10_SuppFigS2_AC_Coherence.R`
+12. `11_SuppFigS3_ABC_Exhaustive.R`
+13. `12_Fig2_AEILD_Directional_and_Bridge.R`
+14. `13_Fig3_Biomarker_Atlas.R`
+15. `14a_Fig4_Integrated_Outcome_Synthesis_fully_datadriven.R`
+16. `14b_Fig4_Integrated_Outcome_Synthesis.R`
+17. `15_Supp_DesignTier_Weighted_Sensitivity.R`
+18. `16_SuppFigS4_CaseReport_ABC_Only.R`
+
+Temporal holdout scripts are run separately:
+- `17_TimeSlice_BuildAndAnalyze.R`
+- `18_TimeSlice_CompareAndSummarize.R`
+
+## Reproducibility notes
+
+- The released corpus window is fixed by `DATE_MAX = "2025/12/31"` in `00_setup.R`.
+- The released analysis dictionary is fixed as `ra_ild_dictionary_analysis_v1_genetics.csv`.
+- Figure 4 reproducibility is anchored to **14a**, which writes term-level provenance tables.  
+  **14b** should be read as the refined manuscript-facing layout version.
+- Dataset S1 and Dataset S2 are publication-facing names used for public release.  
+  Internal pipeline outputs may have longer tag-stamped file names, as noted above.
+- PubMed content changes over time. For exact manuscript reproduction, use the released `Dataset_S1_pmids1.csv`.
+
+## Data redistribution note
+
+This repository releases PMID-level identifiers and derived analysis tables. PubMed abstract text itself should not be redistributed here unless licensing and source terms clearly allow it.
+
+## Contact
+
+**Shinji Maeda, MD, PhD**  
+Department of Respiratory Medicine, Allergy and Clinical Immunology,  
+Nagoya City University Graduate School of Medical Sciences, Nagoya, Japan  
+Email: `snb51961@med.nagoya-cu.jp`

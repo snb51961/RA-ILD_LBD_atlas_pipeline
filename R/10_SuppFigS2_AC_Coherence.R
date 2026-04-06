@@ -1,9 +1,9 @@
 # =========================================================
-# 10_Fig3_AC_Coherence_Final.R
-# Figure 3 (legacy-style, restored)
-#   - Fig 3A: A↔C Coherence Heatmap (NPMI & log2(Lift)) [2 panels]
-#   - Fig 3B: A↔C Coherence Scatter (NPMI vs log2(Lift)), faceted by Outcome(C)
-# Design follows the previous "Figure 3 (final tuning)" style.
+# 10_SuppFigS2_AC_Coherence_Final.R
+# Supplementary Figure S2 (legacy-style, restored)
+#   - Fig. S2A: A↔C Coherence Heatmap (NPMI & log2(Lift)) [2 panels]
+#   - Fig. S2B: A↔C Coherence Scatter (NPMI vs log2(Lift)), faceted by Outcome(C)
+# Design follows the previous "Supplementary Figure S2 (final tuning)" style.
 # =========================================================
 
 ## ---- setup ----
@@ -91,7 +91,7 @@ ord_C <- D %>% count(C, name="n") %>% arrange(desc(n)) %>% pull(C)
 D <- D %>% mutate(C = factor(C, levels = ord_C))
 
 # =========================================================
-# Figure 3A: Heatmap (NPMI & log2(Lift))  [2 panels]
+# Supplementary Figure S2A: Heatmap (NPMI & log2(Lift))  [2 panels]
 # =========================================================
 D_heat_npmi <- D %>%
   mutate(
@@ -117,7 +117,7 @@ p_heat <- ggplot(HH, aes(x = A, y = C, fill = value)) +
     midpoint = 0, name = "Value"
   ) +
   labs(
-    title = "Figure 3A. A↔C Coherence Heatmap",
+    title = "Supplementary Figure S2A. A↔C Coherence Heatmap",
     subtitle = paste0("NPMI & log2(Lift) | source: ", basename(f_npmi)),
     x = "A term", y = "Outcome (C)"
   ) +
@@ -129,14 +129,14 @@ p_heat <- ggplot(HH, aes(x = A, y = C, fill = value)) +
     strip.text = element_text(face="bold")
   )
 
-f3a_pdf <- file.path(DIR_FIG2, sprintf("Fig3A_AC_coherence_heatmap_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
-f3a_png <- file.path(DIR_FIG2, sprintf("Fig3A_AC_coherence_heatmap_%s__%s.png", CORPUS_TAG, DIC_TAG))
+f3a_pdf <- file.path(DIR_FIG2, sprintf("SuppFigS2A_AC_coherence_heatmap_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
+f3a_png <- file.path(DIR_FIG2, sprintf("SuppFigS2A_AC_coherence_heatmap_%s__%s.png", CORPUS_TAG, DIC_TAG))
 ggsave(f3a_pdf, p_heat, device = cairo_pdf_device, width = 10, height = 8)
 ggsave(f3a_png, p_heat, width = 10, height = 8, dpi = 300)
 log_msg("WROTE:", f3a_pdf)
 
 # =========================================================
-# Figure 3B: Scatter (npmi vs log2(lift)), faceted by Outcome(C)
+# Supplementary Figure S2B: Scatter (npmi vs log2(lift)), faceted by Outcome(C)
 # =========================================================
 lab_df <- D %>%
   group_by(C) %>%
@@ -162,7 +162,7 @@ p_sc <- ggplot(D, aes(x = npmi, y = log2_lift)) +
   # Colors differ by outcome; set guide="none" to hide the legend if desired
   scale_color_discrete(name = "Outcome (C)") +
   labs(
-    title = "Figure 3B. A↔C Coherence Scatter",
+    title = "Supplementary Figure S2B. A↔C Coherence Scatter",
     subtitle = glue("Guides: NPMI ≥ {th_npmi}, Lift ≥ 1.2 | source: {basename(f_npmi)}"),
     x = "NPMI",
     y = "log2(Lift)"
@@ -174,17 +174,17 @@ p_sc <- ggplot(D, aes(x = npmi, y = log2_lift)) +
     legend.position = "right"
   )
 
-f3b_pdf <- file.path(DIR_FIG2, sprintf("Fig3B_AC_coherence_scatter_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
-f3b_png <- file.path(DIR_FIG2, sprintf("Fig3B_AC_coherence_scatter_%s__%s.png", CORPUS_TAG, DIC_TAG))
+f3b_pdf <- file.path(DIR_FIG2, sprintf("SuppFigS2B_AC_coherence_scatter_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
+f3b_png <- file.path(DIR_FIG2, sprintf("SuppFigS2B_AC_coherence_scatter_%s__%s.png", CORPUS_TAG, DIC_TAG))
 ggsave(f3b_pdf, p_sc, device = cairo_pdf_device, width = 10, height = 7)
 ggsave(f3b_png, p_sc, width = 10, height = 7, dpi = 300)
 log_msg("WROTE:", f3b_pdf)
 
-log_msg("=== DONE Fig3A/Fig3B (legacy restored) ===")
+log_msg("=== DONE SuppFigS2A/SuppFigS2B (legacy restored) ===")
 
 
 # =========================================================
-# Figure 3B (subset): Outcomes limited to 4 (AE-ILD, hospitalization, mortality, progression)
+# Supplementary Figure S2B (subset): Outcomes limited to 4 (AE-ILD, hospitalization, mortality, progression)
 # =========================================================
 
 C_FOCUS4 <- c("AE-ILD", "hospitalization", "mortality", "progression")
@@ -219,7 +219,7 @@ p_sc4 <- ggplot(D4, aes(x = npmi, y = log2_lift)) +
   ) +
   scale_color_discrete(name = "Outcome (C)") +
   labs(
-    title = "Figure 3B (focused). A↔C Coherence Scatter (4 outcomes)",
+    title = "Supplementary Figure S2B (focused). A↔C Coherence Scatter (4 outcomes)",
     subtitle = glue("Outcomes: AE-ILD / hospitalization / mortality / progression | NPMI ≥ {th_npmi}, Lift ≥ 1.2"),
     x = "NPMI",
     y = "log2(Lift)"
@@ -231,21 +231,21 @@ p_sc4 <- ggplot(D4, aes(x = npmi, y = log2_lift)) +
     legend.position = "right"
   )
 
-f3b4_pdf <- file.path(DIR_FIG2, sprintf("Fig3B_AC_coherence_scatter_focus4_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
-f3b4_png <- file.path(DIR_FIG2, sprintf("Fig3B_AC_coherence_scatter_focus4_%s__%s.png", CORPUS_TAG, DIC_TAG))
+f3b4_pdf <- file.path(DIR_FIG2, sprintf("SuppFigS2B_AC_coherence_scatter_focus4_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
+f3b4_png <- file.path(DIR_FIG2, sprintf("SuppFigS2B_AC_coherence_scatter_focus4_%s__%s.png", CORPUS_TAG, DIC_TAG))
 ggsave(f3b4_pdf, p_sc4, device = cairo_pdf_device, width = 10, height = 7)
 ggsave(f3b4_png, p_sc4, width = 10, height = 7, dpi = 300)
 log_msg("WROTE:", f3b4_pdf)
 
 
 # =========================================================
-# Figure 3A (focused): Heatmap limited to 4 outcomes
+# Supplementary Figure S2A (focused): Heatmap limited to 4 outcomes
 #   AE-ILD / hospitalization / mortality / progression
 # =========================================================
 
 C_FOCUS4 <- c("AE-ILD", "hospitalization", "mortality", "progression")
 
-# Extract only 4 outcomes from D (the processed data used for Fig3A/3B)
+# Extract only 4 outcomes from D (the processed data used for SuppFigS2A/3B)
 D4 <- D %>%
   mutate(C = as.character(C)) %>%
   filter(C %in% C_FOCUS4) %>%
@@ -286,7 +286,7 @@ p_heat4 <- ggplot(HH4, aes(x = A, y = C, fill = value)) +
     midpoint = 0, name = "Value"
   ) +
   labs(
-    title = "Figure 3A (focused). A↔C Coherence Heatmap (4 outcomes)",
+    title = "Supplementary Figure S2A (focused). A↔C Coherence Heatmap (4 outcomes)",
     subtitle = paste0("Outcomes: ", paste(C_FOCUS4, collapse=", "),
                       " | source: ", basename(f_npmi)),
     x = "A term", y = "Outcome (C)"
@@ -299,15 +299,15 @@ p_heat4 <- ggplot(HH4, aes(x = A, y = C, fill = value)) +
     strip.text = element_text(face="bold")
   )
 
-f3a4_pdf <- file.path(DIR_FIG2, sprintf("Fig3A_AC_coherence_heatmap_focus4_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
-f3a4_png <- file.path(DIR_FIG2, sprintf("Fig3A_AC_coherence_heatmap_focus4_%s__%s.png", CORPUS_TAG, DIC_TAG))
+f3a4_pdf <- file.path(DIR_FIG2, sprintf("SuppFigS2A_AC_coherence_heatmap_focus4_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
+f3a4_png <- file.path(DIR_FIG2, sprintf("SuppFigS2A_AC_coherence_heatmap_focus4_%s__%s.png", CORPUS_TAG, DIC_TAG))
 ggsave(f3a4_pdf, p_heat4, device = cairo_pdf_device, width = 10, height = 6)
 ggsave(f3a4_png, p_heat4, width = 10, height = 6, dpi = 300)
 log_msg("WROTE:", f3a4_pdf)
 
 
 # =========================================================
-# [ADD-ON] Manuscript Figure 3: combine focus4 Fig3A + Fig3B into ONE page
+# [ADD-ON] Manuscript Supplementary Figure S2: combine focus4 SuppFigS2A + SuppFigS2B into ONE page
 #   - DO NOT modify the existing code above; just append this block.
 #   - Uses p_heat4 (focused heatmap) and p_sc4 (focused scatter) already created above.
 # =========================================================
@@ -323,10 +323,10 @@ if (!exists("DIR_FIG2")) stop("DIR_FIG2 not found. Ensure 00_setup_Final.R defin
 if (!exists("CORPUS_TAG")) CORPUS_TAG <- "corpus"
 if (!exists("DIC_TAG"))    DIC_TAG    <- "dic"
 
-# --- 1) Fix overlapping A-term labels in Fig3A (focused heatmap) ---
+# --- 1) Fix overlapping A-term labels in SuppFigS2A (focused heatmap) ---
 p_heat4_pub <- p_heat4 +
   labs(
-    title = "Figure 3A. A↔C coherence heatmap (4 outcomes)",
+    title = "Supplementary Figure S2A. A↔C coherence heatmap (4 outcomes)",
     subtitle = NULL
   ) +
   theme(
@@ -349,10 +349,10 @@ if ("guide_axis" %in% getNamespaceExports("ggplot2")) {
     scale_x_discrete(guide = guide_axis(n.dodge = 2))
 }
 
-# --- 2) Make Fig3B (focused scatter) a bit more "paper-like" ---
+# --- 2) Make SuppFigS2B (focused scatter) a bit more "paper-like" ---
 p_sc4_pub <- p_sc4 +
   labs(
-    title = "Figure 3B. A↔C coherence scatter (4 outcomes)",
+    title = "Supplementary Figure S2B. A↔C coherence scatter (4 outcomes)",
     subtitle = NULL
   ) +
   theme(
@@ -366,9 +366,9 @@ p_sc4_pub <- p_sc4 +
     plot.margin  = margin(t = 6, r = 8, b = 6, l = 8)
   )
 
-# --- 3) Combine into a single Figure 3 page (A on top, B below) ---
-out_pdf <- file.path(DIR_FIG2, sprintf("Figure3_AB_focus4_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
-out_png <- file.path(DIR_FIG2, sprintf("Figure3_AB_focus4_%s__%s.png", CORPUS_TAG, DIC_TAG))
+# --- 3) Combine into a single Supplementary Figure S2 page (A on top, B below) ---
+out_pdf <- file.path(DIR_FIG2, sprintf("SupplementaryFigureS2_AB_focus4_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
+out_png <- file.path(DIR_FIG2, sprintf("SupplementaryFigureS2_AB_focus4_%s__%s.png", CORPUS_TAG, DIC_TAG))
 
 # Prefer patchwork; fallback to cowplot if patchwork is unavailable
 if (requireNamespace("patchwork", quietly = TRUE)) {
@@ -401,6 +401,6 @@ if (requireNamespace("patchwork", quietly = TRUE)) {
   stop("Neither 'patchwork' nor 'cowplot' is available. Please install one: install.packages('patchwork') or install.packages('cowplot').")
 }
 
-log_msg("WROTE combined Figure 3:", out_pdf)
-log_msg("WROTE combined Figure 3:", out_png)
+log_msg("WROTE combined Supplementary Figure S2:", out_pdf)
+log_msg("WROTE combined Supplementary Figure S2:", out_png)
 

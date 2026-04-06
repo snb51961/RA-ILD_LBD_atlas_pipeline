@@ -1,6 +1,6 @@
 # =========================================================
-# 13_Fig6_BiomarkerEvidenceAtlas_Final.R
-# Figure 6 = Biomarker evidence atlas (RA-ILD) — fully compatible + dense Panel B (fixed outcomes)
+# 13_Fig3_Biomarker_Atlas.R
+# Figure 3 = Biomarker evidence atlas (RA-ILD) — fully compatible + dense Panel B (fixed outcomes)
 #
 # Fixes vs denseB.R:
 #  1) Panel B no longer uses a pre-filtered A candidate set. It builds the network from the full
@@ -36,18 +36,18 @@ source(.find_setup())
 
 # --- Minimal run log for reproducibility ---
 stamp_run <- format(Sys.time(), "%Y%m%d-%H%M%S")
-log_file <- file.path(DIR_LOG, paste0("run13_fig6_biomarker_atlas_", stamp_run, ".txt"))
+log_file <- file.path(DIR_LOG, paste0("run13_fig3_biomarker_atlas_", stamp_run, ".txt"))
 try({
   dir.create(DIR_LOG, recursive = TRUE, showWarnings = FALSE)
   con <- file(log_file, open = "wt", encoding = "UTF-8")
   writeLines(c(
-    paste0("script: ", "13_Fig6_BiomarkerEvidenceAtlas_Final.R"),
+    paste0("script: ", "13_Fig3_Biomarker_Atlas.R"),
     paste0("run_at: ", Sys.time()),
     paste0("CORPUS_TAG: ", CORPUS_TAG),
     paste0("DIC_TAG: ", DIC_TAG),
     paste0("DIC_FILE: ", DIC_FILE),
     paste0("DIR_TABLE: ", DIR_TABLE),
-    paste0("DIR_FIG6: ", if (exists("DIR_FIG6")) DIR_FIG6 else "NA"),
+    paste0("DIR_FIG3: ", if (exists("DIR_FIG3")) DIR_FIG3 else if (exists("DIR_FIG2")) DIR_FIG2 else if (exists("DIR_FIG")) DIR_FIG else "NA"),
     ""
   ), con)
   # Capture key inputs if present
@@ -162,7 +162,7 @@ if (is.na(dic_path) || !file.exists(dic_path)) stop("Dictionary CSV not found in
 DIC <- readr::read_csv(dic_path, show_col_types = FALSE)
 if (!all(c("term","class") %in% names(DIC))) stop("Dictionary must include columns term and class.")
 
-message("FIG6 (denseB_v2) dictionary: ", dic_path,
+message("FIG3 (denseB_v2) dictionary: ", dic_path,
         "  n=", nrow(DIC), "  has role? ", ("role" %in% names(DIC)))
 
 BIO_TERMS <- build_bio_terms(DIC, b_classes=B_CLASSES)
@@ -394,13 +394,15 @@ pC <- ggplot(Cdat, aes(x = balance, y = evidence)) +
 # -------------------------
 # Assemble and save
 # -------------------------
-fig6 <- (pA | pB) / pC +
+fig3 <- (pA | pB) / pC +
   patchwork::plot_annotation(tag_levels = "A") +
   patchwork::plot_layout(heights = c(1.05, 1))
 
-stub <- file.path(DIR_FIG2, sprintf("Figure6_%s__%s_BIOMARKER_ATLAS_COMPAT_denseB_v2", CORPUS_TAG, DIC_TAG))
-ggsave(paste0(stub, ".pdf"), fig6, width=12, height=8.2, device=grDevices::cairo_pdf)
-ggsave(paste0(stub, ".png"), fig6, width=12, height=8.2, dpi=350)
+FIG_OUT_DIR <- if (exists("DIR_FIG3")) DIR_FIG3 else if (exists("DIR_FIG2")) DIR_FIG2 else if (exists("DIR_FIG")) DIR_FIG else stop("No figure output directory found (DIR_FIG3/DIR_FIG2/DIR_FIG).")
+
+stub <- file.path(FIG_OUT_DIR, sprintf("Figure3_%s__%s_BIOMARKER_ATLAS_COMPAT_denseB_v2", CORPUS_TAG, DIC_TAG))
+ggsave(paste0(stub, ".pdf"), fig3, width=12, height=8.2, device=grDevices::cairo_pdf)
+ggsave(paste0(stub, ".png"), fig3, width=12, height=8.2, dpi=350)
 
 log_msg("WROTE: ", paste0(stub, ".pdf"))
 log_msg("WROTE: ", paste0(stub, ".png"))

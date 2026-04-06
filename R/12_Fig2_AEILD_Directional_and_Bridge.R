@@ -1,6 +1,6 @@
 # =========================================================
-# 12_Fig5_SignedEffects_Summary_Final.R
-# Fix: Fig5B now uses topA_support directly and fills missing balance/articles
+# 12_Fig2_SignedEffects_Summary_Final.R
+# Fix: Fig2B now uses topA_support directly and fills missing balance/articles
 # =========================================================
 
 source(file.path(getwd(), "00_setup_Final.R"))
@@ -17,9 +17,9 @@ quiet_install(c("dplyr","readr","stringr","forcats","ggplot2","scales","patchwor
 # Reproducibility log
 # -------------------------
 RUN_STAMP <- format(Sys.time(), "%Y%m%d-%H%M%S")
-RUN_LOG <- file.path(DIR_LOG, paste0("run12_figure5_", RUN_STAMP, ".txt"))
+RUN_LOG <- file.path(DIR_LOG, paste0("run12_figure2_", RUN_STAMP, ".txt"))
 writeLines(c(
-  paste0("script=12_Fig5_SignedEffects_Summary_Final"),
+  paste0("script=12_Fig2_SignedEffects_Summary_Final"),
   paste0("run_stamp=", RUN_STAMP),
   paste0("corpus_tag=", CORPUS_TAG),
   paste0("dic_tag=", DIC_TAG),
@@ -59,7 +59,7 @@ theme_fig5 <- ggplot2::theme_minimal(base_size = 10) +
   )
 
 # -------------------------
-# Fig 5A
+# Fig. 2A
 # -------------------------
 A_all <- Ssum |>
   dplyr::filter(C == C_MAIN) |>
@@ -107,7 +107,7 @@ pA <- ggplot2::ggplot(A_dat, ggplot2::aes(x = balance, y = A_f)) +
   theme_fig5
 
 # -------------------------
-# Fig 5B (FIXED)
+# Fig. 2B (FIXED)
 # -------------------------
 support_tab <- rank |>
   dplyr::filter(C == C_MAIN) |>
@@ -156,7 +156,7 @@ pB <- ggplot2::ggplot(B_dat, ggplot2::aes(x = triad_support, y = A_f)) +
   theme_fig5
 
 # -------------------------
-# Fig 5C (6 panels, 2 rows)
+# Fig. 2C (6 panels, 2 rows)
 # -------------------------
 rank_bd <- rank |>
   dplyr::filter(C == C_MAIN, A %in% A_BREAKDOWN) |>
@@ -217,7 +217,7 @@ save_dual <- function(stub, plot, w, h, dpi=350){
   log_msg("WROTE: ", paste0(stub, ".png"))
 }
 
-stub <- file.path(DIR_FIG2, sprintf("Figure5_%s__%s", CORPUS_TAG, DIC_TAG))
+stub <- file.path(DIR_FIG2, sprintf("Figure2_%s__%s", CORPUS_TAG, DIC_TAG))
 ggplot2::ggsave(paste0(stub, ".pdf"), fig5, width = 12, height = 7.8, device = grDevices::cairo_pdf)
 ggplot2::ggsave(paste0(stub, ".png"), fig5, width = 12, height = 7.8, dpi = 350)
 

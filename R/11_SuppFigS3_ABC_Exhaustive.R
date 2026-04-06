@@ -1,8 +1,8 @@
 # =========================================================
-# 11_Fig4_ABC_Final.R
-# Figure 4 (ABC block) — FINAL
-#  - Fig4A: Top triads barplot (A → B/B′ → C_main)
-#  - Fig4B: ABC network
+# 11_SuppFigS3_ABC_Final.R
+# Supplementary Figure S3 (ABC block) — FINAL
+#  - SuppFigS3A: Top triads barplot (A → B/B′ → C_main)
+#  - SuppFigS3B: ABC network
 #      * AB/BC edges separated by color + linetype (AB=solid, BC=longdash)
 #      * edge width ∝ log1p(evidence count) to avoid domination by one edge
 #      * node shapes denote roles (A/B/B′/C)
@@ -126,7 +126,7 @@ C_main <- Rf$C[1]
 log_msg("09 selected triads:", nrow(Rf), " | C_main=", C_main)
 
 # =========================================================
-# Fig4A: Top triads barplot
+# SuppFigS3A: Top triads barplot
 # =========================================================
 R4A <- Rf %>%
   mutate(
@@ -138,7 +138,7 @@ R4A <- Rf %>%
 p4a <- ggplot(R4A, aes(x = .data[[score_col]], y = fct_rev(fct_inorder(triad_label)))) +
   geom_col() +
   labs(
-    title = "Figure 4A. Top A–B–C triads",
+    title = "Supplementary Figure S3A. Top A–B–C triads",
     subtitle = paste0("C = ", C_main, " | source: ", basename(f_rank),
                       if (has_q) paste0(" | FDR<", FDR_THRES) else ""),
     x = score_col,
@@ -147,14 +147,14 @@ p4a <- ggplot(R4A, aes(x = .data[[score_col]], y = fct_rev(fct_inorder(triad_lab
   theme_minimal(base_size = 11) +
   theme(text = element_text(family = jpfont))
 
-f4a_png <- file.path(DIR_FIG2, sprintf("Fig4A_top_triads_%s__%s.png", CORPUS_TAG, DIC_TAG))
-f4a_pdf <- file.path(DIR_FIG2, sprintf("Fig4A_top_triads_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
+f4a_png <- file.path(DIR_FIG2, sprintf("SuppFigS3A_top_triads_%s__%s.png", CORPUS_TAG, DIC_TAG))
+f4a_pdf <- file.path(DIR_FIG2, sprintf("SuppFigS3A_top_triads_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
 ggsave(f4a_png, p4a, width = 11, height = max(6, 0.22*nrow(R4A) + 2), dpi = 300)
 ggsave(f4a_pdf, p4a, width = 11, height = max(6, 0.22*nrow(R4A) + 2), device = cairo_pdf_device)
 log_msg("WROTE:", f4a_pdf)
 
 # =========================================================
-# Fig4B: ABC network
+# SuppFigS3B: ABC network
 #  - AB/BC separated by color + linetype
 #  - width uses log1p(count) for stability
 # =========================================================
@@ -235,7 +235,7 @@ p4b <- ggraph::ggraph(g, layout = NET_LAYOUT) +
   scale_fill_manual(values = fill_map, guide = "none") +
   scale_size_continuous(range = c(3, 9), guide = "none") +
   labs(
-    title = "Figure 4B. ABC network (Top triads)",
+    title = "Supplementary Figure S3B. ABC network (Top triads)",
     subtitle = paste0("AB: red solid | BC: blue dashed | width ∝ supporting records (log1p). ",
                       "rankings: ", basename(f_rank))
   ) +
@@ -246,28 +246,28 @@ p4b <- ggraph::ggraph(g, layout = NET_LAYOUT) +
     panel.grid = element_blank()
   )
 
-f4b_png <- file.path(DIR_FIG2, sprintf("Fig4B_abc_network_%s__%s.png", CORPUS_TAG, DIC_TAG))
-f4b_pdf <- file.path(DIR_FIG2, sprintf("Fig4B_abc_network_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
+f4b_png <- file.path(DIR_FIG2, sprintf("SuppFigS3B_abc_network_%s__%s.png", CORPUS_TAG, DIC_TAG))
+f4b_pdf <- file.path(DIR_FIG2, sprintf("SuppFigS3B_abc_network_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
 ggsave(f4b_png, p4b, width = 10, height = 6, dpi = 300)
 ggsave(f4b_pdf, p4b, width = 10, height = 6, device = cairo_pdf_device)
 
 log_msg("WROTE:", f4b_pdf)
-log_msg("=== DONE 09_Fig4_ABC_FINAL_v2 ===")
+log_msg("=== DONE 09_SuppFigS3_ABC_FINAL_v2 ===")
 
 
 
 # =========================================================
-# ADD-ON (GitHub-ready): Create final MANUSCRIPT Figure 4 (A+B) in ONE page
-#   - Fig4A: two-column barplot (Left: top, Right: next)
-#   - Fig4B: network (already created as p4b above)
-#   - Output: Figure4_AB_*.pdf/.png  (this is the manuscript figure to use)
+# ADD-ON (GitHub-ready): Create final MANUSCRIPT Supplementary Figure S3 (A+B) in ONE page
+#   - SuppFigS3A: two-column barplot (Left: top, Right: next)
+#   - SuppFigS3B: network (already created as p4b above)
+#   - Output: SupplementaryFigureS3_AB_*.pdf/.png  (this is the manuscript figure to use)
 # =========================================================
 
 suppressPackageStartupMessages({
   library(patchwork)
 })
 
-# ---- Fig4A (two-column, compact, muted academic color) ----
+# ---- SuppFigS3A (two-column, compact, muted academic color) ----
 BAR_COL <- "#4E79A7"  # muted blue
 
 R4A_2col <- R4A %>%
@@ -283,7 +283,7 @@ p4a_2col <- ggplot(R4A_2col, aes(x = .data[[score_col]], y = forcats::fct_rev(.l
   geom_col(fill = BAR_COL) +
   facet_wrap(~ .panel, nrow = 1, scales = "free_y") +
   labs(
-    title = "Figure 4A. Top A–B–C triads",
+    title = "Supplementary Figure S3A. Top A–B–C triads",
     x = score_col,
     y = NULL
   ) +
@@ -301,7 +301,7 @@ p4a_2col <- ggplot(R4A_2col, aes(x = .data[[score_col]], y = forcats::fct_rev(.l
     plot.margin = margin(t = 6, r = 8, b = 6, l = 8)
   )
 
-# ---- Fig4B (reuse p4b, slightly tighten subtitle to save space) ----
+# ---- SuppFigS3B (reuse p4b, slightly tighten subtitle to save space) ----
 p4b_pub <- p4b +
   labs(subtitle = NULL) +
   theme(
@@ -320,10 +320,10 @@ p4_comb <- (p4a_2col / p4b_pub) +
     plot.tag.position = c(0.01, 0.99)
   )
 
-f4ab_pdf <- file.path(DIR_FIG2, sprintf("Figure4_AB_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
-f4ab_png <- file.path(DIR_FIG2, sprintf("Figure4_AB_%s__%s.png", CORPUS_TAG, DIC_TAG))
+f4ab_pdf <- file.path(DIR_FIG2, sprintf("SupplementaryFigureS3_AB_%s__%s.pdf", CORPUS_TAG, DIC_TAG))
+f4ab_png <- file.path(DIR_FIG2, sprintf("SupplementaryFigureS3_AB_%s__%s.png", CORPUS_TAG, DIC_TAG))
 
 ggsave(f4ab_pdf, p4_comb, width = 12, height = 10, device = cairo_pdf_device)
 ggsave(f4ab_png, p4_comb, width = 12, height = 10, dpi = 300)
 
-log_msg("WROTE FINAL MANUSCRIPT FIGURE 4:", f4ab_pdf)
+log_msg("WROTE FINAL MANUSCRIPT SUPPLEMENTARY FIGURE S3:", f4ab_pdf)

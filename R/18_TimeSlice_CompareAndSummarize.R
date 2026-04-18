@@ -309,12 +309,14 @@ bridge_validation <- bridge_primary |>
     by = "B"
   ) |>
   dplyr::mutate(
-    strict_retained = !is.na(hold_topness) & hold_topness >= 0.75,
-    loose_retained  = !is.na(hold_topness) & hold_topness >= 0.50,
+    observed_in_holdout = !is.na(hold_topness),
+    strict_retained = observed_in_holdout & hold_topness >= 0.75,
+    loose_retained  = observed_in_holdout & hold_topness >= 0.50,
     retention_class = dplyr::case_when(
-      strict_retained ~ "Top 25%",
-      loose_retained  ~ "Top 50%",
-      TRUE            ~ "Lower"
+      !observed_in_holdout ~ "Not observed in holdout",
+      strict_retained      ~ "Top 25%",
+      loose_retained       ~ "Top 50%",
+      TRUE                 ~ "Lower"
     )
   )
 
@@ -597,17 +599,37 @@ pA <- if (nrow(pA_dat)) {
 pB_dat <- bridge_validation |>
   dplyr::mutate(
     B = forcats::fct_reorder(B, disc_rank, .desc = TRUE),
-    retention_class = factor(retention_class, levels = c("Top 25%","Top 50%","Lower"))
+    retention_class = factor(
+      retention_class,
+      levels = c("Top 25%", "Top 50%", "Lower", "Not observed in holdout")
+    ),
+    plot_x = ifelse(is.na(hold_topness), -0.03, hold_topness)
   )
 
 pB <- if (nrow(pB_dat)) {
-  ggplot2::ggplot(pB_dat, ggplot2::aes(x = hold_topness, y = B, colour = retention_class, size = disc_support)) +
+  ggplot2::ggplot(
+    pB_dat,
+    ggplot2::aes(x = plot_x, y = B, colour = retention_class, size = disc_support)
+  ) +
     ggplot2::geom_vline(xintercept = c(0.50, 0.75), linetype = "dashed", linewidth = 0.3, colour = "grey50") +
     ggplot2::geom_point(alpha = 0.95) +
-    ggplot2::scale_x_continuous(limits = c(0, 1)) +
+    ggplot2::scale_x_continuous(
+      limits = c(-0.05, 1),
+      breaks = c(0, 0.25, 0.5, 0.75, 1.0),
+      labels = c("0", "0.25", "0.50", "0.75", "1.00")
+    ) +
     ggplot2::scale_size_continuous(name = "Discovery\nimportance") +
+    ggplot2::scale_colour_manual(
+      values = c(
+        "Top 25%" = "#F8766D",
+        "Top 50%" = "#FDAE61",
+        "Lower" = "#00BFC4",
+        "Not observed in holdout" = "grey60"
+      )
+    ) +
     ggplot2::labs(
       title = "B. AE-ILD bridge-intermediate retention",
+      subtitle = "Grey points indicate discovery-prioritised B nodes not observed in holdout",
       x = "Holdout topness (1 = highest among B nodes)",
       y = NULL,
       colour = "Retention"

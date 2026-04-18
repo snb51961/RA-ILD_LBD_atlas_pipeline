@@ -22,7 +22,8 @@ R/
   13_Fig3_Biomarker_Atlas.R
   13_Fig3_Biomarker_Atlas_renumbered.R
   14a_Fig4_Integrated_Outcome_Synthesis_fully_datadriven.R
-  14b_Fig4_Integrated_Outcome_Synthesis.R
+  14b_Fig4_Integrated_Outcome_Synthesis_from_provenance.R
+  14c_Build_Supplementary_Table_S7_from_Fig4_Provenance.R
   15_Supp_DesignTier_Weighted_Sensitivity.R
   16_SuppFigS4_CaseReport_ABC_Only.R
   17_TimeSlice_BuildAndAnalyze.R
@@ -63,7 +64,7 @@ This is the fixed analysis dictionary used throughout the released pipeline. It 
 - semantic classes
 - ABC roles used in downstream interpretation
 
-The released analyses are tied to this dictionary version. For reproducibility, use this file unchanged.
+The released analyses are tied to this dictionary file name. Minor internal refinements of regex content were incorporated into the final released file without changing the dictionary tag or file name; for reproducibility, use the released file in `dic/` unchanged.
 
 ## Script overview
 
@@ -117,8 +118,11 @@ The released analyses are tied to this dictionary version. For reproducibility, 
 - **14a_Fig4_Integrated_Outcome_Synthesis_fully_datadriven.R**  
   Primary Figure 4 synthesis script. Selects hotspot and biomarker/exploratory terms from analysis outputs and writes provenance tables.
 
-- **14b_Fig4_Integrated_Outcome_Synthesis.R**  
-  Refined manuscript-facing Figure 4 layout script. This is a presentation-oriented version derived from the analytical outputs and is not the main provenance-generating script.
+- **14b_Fig4_Integrated_Outcome_Synthesis_from_provenance.R**  
+  Manuscript-facing Figure 4 layout rebuilt from the 14a provenance outputs. This script derives shared versus outcome-centred groupings and writes the final manuscript-style Figure 4 panel.
+
+- **14c_Build_Supplementary_Table_S7_from_Fig4_Provenance.R**  
+  Builds Supplementary Table S7 from the Figure 4 provenance outputs by applying the manuscript-facing sharedness logic to the 14a exports.
 
 - **15_Supp_DesignTier_Weighted_Sensitivity.R**  
   Generates design-tier weighted sensitivity outputs and Supplementary Tables S2–S5.
@@ -127,10 +131,10 @@ The released analyses are tied to this dictionary version. For reproducibility, 
   Generates the exploratory case-report AE-ILD ABC supplementary figure from case-report-specific outputs.
 
 - **17_TimeSlice_BuildAndAnalyze.R**  
-  Builds discovery/holdout/full temporal slices and computes grouped slice outputs.
+  Self-contained temporal holdout build script. It reruns grouped discovery/full/holdout analyses from a frozen original-article corpus and fixed dictionary placed under `temporal_holdout/input/`.
 
 - **18_TimeSlice_CompareAndSummarize.R**  
-  Compares discovery vs holdout outputs and writes the temporal holdout summary and revised Supplementary Figure S5.
+  Compares discovery versus holdout outputs from script 17 and writes the temporal holdout summary and revised Supplementary Figure S5.
 
 ## Recommended run order
 
@@ -151,23 +155,43 @@ For the main released pipeline, the practical execution order is:
 13. `12_Fig2_AEILD_Directional_and_Bridge.R`
 14. `13_Fig3_Biomarker_Atlas.R`
 15. `14a_Fig4_Integrated_Outcome_Synthesis_fully_datadriven.R`
-16. `14b_Fig4_Integrated_Outcome_Synthesis.R`
-17. `15_Supp_DesignTier_Weighted_Sensitivity.R`
-18. `16_SuppFigS4_CaseReport_ABC_Only.R`
+16. `14b_Fig4_Integrated_Outcome_Synthesis_from_provenance.R`
+17. `14c_Build_Supplementary_Table_S7_from_Fig4_Provenance.R`
+18. `15_Supp_DesignTier_Weighted_Sensitivity.R`
+19. `16_SuppFigS4_CaseReport_ABC_Only.R`
 
 Temporal holdout scripts are run separately:
-- `17_TimeSlice_BuildAndAnalyze.R`
-- `18_TimeSlice_CompareAndSummarize.R`
+
+1. `17_TimeSlice_BuildAndAnalyze.R`
+2. `18_TimeSlice_CompareAndSummarize.R`
+
+## Temporal holdout notes
+
+The temporal holdout scripts are intentionally self-contained and separate from the main manuscript pipeline. They expect the following fixed input layout:
+
+```text
+temporal_holdout/
+  input/
+    articles_main_original_frozen.csv
+    ra_ild_dictionary_analysis_v1_genetics.csv
+  output/
+  R/
+    17_TimeSlice_BuildAndAnalyze.R
+    18_TimeSlice_CompareAndSummarize.R
+```
+
+Script 17 writes the discovery/full/holdout slice outputs and the manifest. Script 18 reads that manifest and writes Supplementary Table S6 and the revised Supplementary Figure S5 outputs.
 
 ## Reproducibility notes
 
 - The released corpus window is fixed by `DATE_MAX = "2025/12/31"` in `00_setup.R`.
 - The released analysis dictionary is fixed as `ra_ild_dictionary_analysis_v1_genetics.csv`.
-- Figure 4 reproducibility is anchored to **14a**, which writes term-level provenance tables.  
-  **14b** should be read as the refined manuscript-facing layout version.
+- Figure 4 reproducibility is anchored to **14a**, which writes the term-level provenance tables.  
+  **14b** is the manuscript-facing regrouping/layout script, and **14c** generates Supplementary Table S7 from those provenance outputs.
 - Dataset S1 and Dataset S2 are publication-facing names used for public release.  
   Internal pipeline outputs may have longer tag-stamped file names, as noted above.
 - PubMed content changes over time. For exact manuscript reproduction, use the released `Dataset_S1_pmids1.csv`.
+- Design-tier weighted analyses (Supplementary Tables S2–S5) and temporal holdout outputs (Supplementary Table S6) are sensitivity / robustness analyses and do not replace the main manuscript analyses.
 
 ## Data redistribution note
 

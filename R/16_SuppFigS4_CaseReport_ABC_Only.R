@@ -1,32 +1,15 @@
 # =========================================================
-# 16_SuppFigS4_CaseReport_ABC_Only.R
+# 16_SuppFigS4_CaseReport_ABC_Only_minimal_fixed.R
 # ---------------------------------------------------------
 # Supplementary Figure S4: case-report ABC-only figure for AE-ILD in RA-ILD
 #
-# PURPOSE
-#   Build a supplementary manuscript-facing case-report figure using ONLY the
-#   already-generated case_report_abc_* outputs:
-#     - Top case-report ABC triads (barplot)
-#     - Case-report ABC network
-#
-# DESIGN
-#   - No PubMed retrieval
-#   - No re-running signed effects / biomarker atlas
-#   - Reads existing case_report_abc_rankings + case_report_abc_edges
-#   - Follows the visual logic of original SuppFigS3 as closely as practical
-#   - Does NOT auto-run on source(); call the function explicitly
-#
-# USAGE
-#   source("16_SuppFigS4_CaseReport_ABC_Only.R")
-#   res <- run_case_report_suppfigS4_abc_only_figure()
+# SIMPLE SAFE VERSION
+#   - Assumes source("00_setup.R") has already been run in the session
+#   - Does NOT try to auto-detect or source setup files internally
+#   - Does NOT auto-run on source()
 # =========================================================
 
-run_case_report_suppfigS4_abc_only_figure <- function(
-  setup_file = NULL,
-  root_dir   = NULL,
-  verbose    = TRUE
-) {
-  `%||%` <- function(x, y) if (is.null(x)) y else x
+run_case_report_suppfigS4_abc_only_figure <- function(verbose = TRUE) {
 
   quiet_install <- function(pkgs) {
     to_install <- setdiff(pkgs, rownames(installed.packages()))
@@ -36,93 +19,34 @@ run_case_report_suppfigS4_abc_only_figure <- function(
 
   quiet_install(c("readr","dplyr","stringr","tibble","forcats","ggplot2","patchwork","igraph","ggraph"))
 
-  coerce_scalar_character <- function(x) {
-    if (inherits(x, "fs_path")) x <- as.character(x)
-    if (is.factor(x)) x <- as.character(x)
-    if (is.list(x) && length(x) == 1) x <- unlist(x, use.names = FALSE)
-    if (is.null(x) || length(x) == 0) return(NULL)
-    if (!is.atomic(x)) return(NULL)
-    if (!is.character(x)) x <- tryCatch(as.character(x), error = function(e) NULL)
-    if (is.null(x) || length(x) == 0) return(NULL)
-    x <- x[[1]]
-    if (is.na(x) || !nzchar(x)) return(NULL)
-    x
+  # -------------------------------------------------------
+  # Require setup objects from 00_setup.R
+  # -------------------------------------------------------
+  req <- c("ROOT","DIR_TABLE","DIR_FIG2","DIR_DIC","CORPUS_TAG","DIC_TAG")
+  miss <- req[!vapply(req, exists, logical(1), inherits = TRUE)]
+  if (length(miss)) {
+    stop(
+      "Missing setup objects: ", paste(miss, collapse = ", "),
+      "\nRun source('00_setup.R') first."
+    )
   }
 
-  normalize_path_safe <- function(path) {
-    path <- coerce_scalar_character(path)
-    if (is.null(path)) return(NULL)
-    normalizePath(path, winslash = "/", mustWork = FALSE)
-  }
+  ROOT2      <- as.character(get("ROOT", inherits = TRUE))
+  DIR_TABLE2 <- as.character(get("DIR_TABLE", inherits = TRUE))
+  DIR_FIG2   <- as.character(get("DIR_FIG2", inherits = TRUE))
+  DIR_DIC2   <- as.character(get("DIR_DIC", inherits = TRUE))
+  CORPUS_TAG2 <- as.character(get("CORPUS_TAG", inherits = TRUE))
+  DIC_TAG2    <- as.character(get("DIC_TAG", inherits = TRUE))
 
-  get_scalar_from_env <- function(name, default = NULL, inherits = TRUE) {
-    if (!exists(name, inherits = inherits)) return(default)
-    coerce_scalar_character(get(name, inherits = inherits)) %||% default
-  }
-
-  find_first_existing_dir <- function(paths) {
-    paths <- unique(Filter(Negate(is.null), lapply(paths, normalize_path_safe)))
-    for (p in paths) if (dir.exists(p)) return(p)
-    NULL
-  }
+  dir.create(DIR_TABLE2, recursive = TRUE, showWarnings = FALSE)
+  dir.create(DIR_FIG2, recursive = TRUE, showWarnings = FALSE)
 
   find_latest_file <- function(dir, regex, recursive = FALSE) {
-    dir <- normalize_path_safe(dir)
-    if (is.null(dir) || !dir.exists(dir)) return(NA_character_)
+    if (is.na(dir) || !dir.exists(dir)) return(NA_character_)
     xs <- list.files(dir, pattern = regex, full.names = TRUE, recursive = recursive)
     if (!length(xs)) return(NA_character_)
     xs[which.max(file.info(xs)$mtime)]
   }
-
-  # -------------------------------------------------------
-  # Load setup if available (00_setup.R or 00_setup_Final.R)
-  # -------------------------------------------------------
-  setup_candidates <- unique(Filter(Negate(is.null), c(
-    coerce_scalar_character(setup_file),
-    file.path(getwd(), "00_setup.R"),
-    file.path(getwd(), "00_setup_Final.R"),
-    file.path(get_scalar_from_env("RAILD_ROOT"), "00_setup.R"),
-    file.path(get_scalar_from_env("RAILD_ROOT"), "00_setup_Final.R")
-  )))
-
-  setup_loaded <- FALSE
-  for (sp in setup_candidates) {
-    if (file.exists(sp)) {
-      source(sp, local = FALSE)
-      setup_loaded <- TRUE
-      if (isTRUE(verbose)) message("Loaded setup: ", normalize_path_safe(sp))
-      break
-    }
-  }
-
-  if (!setup_loaded && isTRUE(verbose)) {
-    message("No setup file was loaded. Using existing session objects and standard fallbacks.")
-  }
-
-  ROOT2 <- find_first_existing_dir(c(
-    coerce_scalar_character(root_dir),
-    get_scalar_from_env("ROOT"),
-    get_scalar_from_env("RAILD_ROOT"),
-    getwd(),
-    path.expand("~")
-  ))
-  ROOT2 <- ROOT2 %||% normalizePath(getwd(), winslash = "/", mustWork = FALSE)
-
-  CORPUS_TAG2 <- get_scalar_from_env("CORPUS_TAG") %||% "pm_1980_20251231"
-  DIC_TAG2    <- get_scalar_from_env("DIC_TAG") %||% "analysis_v1_genetics"
-
-  DIR_TABLE2 <- normalize_path_safe(get_scalar_from_env("DIR_TABLE"))
-  if (is.null(DIR_TABLE2)) DIR_TABLE2 <- file.path(ROOT2, "output", CORPUS_TAG2, DIC_TAG2, "table")
-
-  DIR_FIG2 <- normalize_path_safe(get_scalar_from_env("DIR_FIG2"))
-  if (is.null(DIR_FIG2)) DIR_FIG2 <- normalize_path_safe(get_scalar_from_env("DIR_FIG"))
-  if (is.null(DIR_FIG2)) DIR_FIG2 <- file.path(ROOT2, "output", CORPUS_TAG2, DIC_TAG2, "fig")
-
-  DIR_DIC2 <- normalize_path_safe(get_scalar_from_env("DIR_DIC"))
-  if (is.null(DIR_DIC2)) DIR_DIC2 <- file.path(ROOT2, "dic")
-
-  dir.create(DIR_TABLE2, recursive = TRUE, showWarnings = FALSE)
-  dir.create(DIR_FIG2, recursive = TRUE, showWarnings = FALSE)
 
   # -------------------------------------------------------
   # Inputs
@@ -142,6 +66,7 @@ run_case_report_suppfigS4_abc_only_figure <- function(
   if (!file.exists(dic_path)) dic_path <- NA_character_
 
   if (isTRUE(verbose)) {
+    message("ROOT           : ", ROOT2)
     message("Using rankings : ", f_rank)
     message("Using edges    : ", ifelse(is.na(f_edges), "<fallback from rankings>", f_edges))
     message("Using dictionary: ", ifelse(is.na(dic_path), "<not found>", dic_path))
@@ -166,17 +91,17 @@ run_case_report_suppfigS4_abc_only_figure <- function(
   }
 
   # -------------------------------------------------------
-  # Parameters (easy to tweak)
+  # Parameters
   # -------------------------------------------------------
   TOP_TRIADS <- 16L
-  CAP_PER_A  <- NA_integer_   # set e.g. 2L to diversify A terms
+  CAP_PER_A  <- NA_integer_
   NET_LAYOUT <- "fr"
   FIG_STUB_BASENAME <- "SupplementaryFigureS4_case_report_ABC_only"
   FIG_WIDTH  <- 12
   FIG_HEIGHT <- 10
 
   # -------------------------------------------------------
-  # Dictionary-based role mapping (optional but preferred)
+  # Optional dictionary role mapping
   # -------------------------------------------------------
   ROLE_A_CLASSES   <- c("drug","bio","gene","exposure","host","event","nonpharm","vaccine","population","system","strategy")
   ROLE_B_CLASSES   <- c("biomarker","molecular","microbiome","cell","activity","pft","phenotype","trend","complication")
@@ -212,9 +137,7 @@ run_case_report_suppfigS4_abc_only_figure <- function(
   # Select top triads
   # -------------------------------------------------------
   R1 <- R0 |>
-    dplyr::mutate(
-      dplyr::across(dplyr::all_of(score_col), as.numeric)
-    ) |>
+    dplyr::mutate(dplyr::across(dplyr::all_of(score_col), as.numeric)) |>
     dplyr::arrange(dplyr::desc(.data[[score_col]]))
 
   if (!is.na(CAP_PER_A)) {
@@ -231,13 +154,9 @@ run_case_report_suppfigS4_abc_only_figure <- function(
   C_main <- Rf$C[1]
 
   # -------------------------------------------------------
-  # Panel A: top triads barplot
+  # Panel A
   # -------------------------------------------------------
-  B_role <- if (!is.null(dic)) {
-    role_of_class(class_lookup(Rf$B, dic))
-  } else {
-    rep("B", nrow(Rf))
-  }
+  B_role <- if (!is.null(dic)) role_of_class(class_lookup(Rf$B, dic)) else rep("B", nrow(Rf))
 
   R_bar <- Rf |>
     dplyr::mutate(
@@ -262,16 +181,13 @@ run_case_report_suppfigS4_abc_only_figure <- function(
     )
 
   # -------------------------------------------------------
-  # Panel B: ABC network
+  # Panel B
   # -------------------------------------------------------
   keep_nodes <- unique(c(Rf$A, Rf$B, Rf$C))
 
   E <- E0 |>
     dplyr::filter(from %in% keep_nodes, to %in% keep_nodes) |>
-    dplyr::mutate(
-      w = as.numeric(w),
-      kind = as.character(kind)
-    ) |>
+    dplyr::mutate(w = as.numeric(w), kind = as.character(kind)) |>
     dplyr::filter(!is.na(from), from != "", !is.na(to), to != "")
 
   if (nrow(E) == 0) {
@@ -301,7 +217,6 @@ run_case_report_suppfigS4_abc_only_figure <- function(
 
     col_edge_AB <- "#C74B50"
     col_edge_BC <- "#4E79A7"
-
     shape_map <- c(A = 22, B = 21, Bprime = 24, C = 23, Other = 25)
     fill_map  <- c(A = "#1b4f72", B = "#117a65", Bprime = "#d35400", C = "#b03a2e", Other = "#7d7d7d")
 
@@ -309,8 +224,7 @@ run_case_report_suppfigS4_abc_only_figure <- function(
     pB <- ggraph::ggraph(g, layout = NET_LAYOUT) +
       ggraph::geom_edge_link(
         ggplot2::aes(edge_colour = kind, edge_width = w_plot, linetype = kind),
-        alpha = 0.65,
-        lineend = "round"
+        alpha = 0.65, lineend = "round"
       ) +
       ggraph::geom_node_point(
         ggplot2::aes(shape = role2, size = deg, fill = role2),
@@ -318,28 +232,19 @@ run_case_report_suppfigS4_abc_only_figure <- function(
       ) +
       ggraph::geom_node_text(
         ggplot2::aes(label = label),
-        size = 3.2,
-        repel = TRUE
+        size = 3.2, repel = TRUE
       ) +
       ggraph::scale_edge_colour_manual(
         values = c(AB = col_edge_AB, BC = col_edge_BC),
         labels = c(AB = "AB (A -> B/B')", BC = paste0("BC (B/B' -> ", C_main, ")")),
         name = "Edge type"
       ) +
-      ggraph::scale_edge_linetype_manual(
-        values = c(AB = "solid", BC = "longdash"),
-        name = "Edge type"
-      ) +
-      ggraph::scale_edge_width_continuous(
-        range = c(0.45, 2.8),
-        name = "Evidence (log1p count)"
-      ) +
+      ggraph::scale_edge_linetype_manual(values = c(AB = "solid", BC = "longdash"), name = "Edge type") +
+      ggraph::scale_edge_width_continuous(range = c(0.45, 2.8), name = "Evidence (log1p count)") +
       ggplot2::scale_shape_manual(values = shape_map, name = "Node role") +
       ggplot2::scale_fill_manual(values = fill_map, guide = "none") +
       ggplot2::scale_size_continuous(range = c(3, 9), guide = "none") +
-      ggplot2::labs(
-        title = "Case-report ABC network (AE-ILD)"
-      ) +
+      ggplot2::labs(title = "Case-report ABC network (AE-ILD)") +
       ggplot2::theme_void(base_size = 11) +
       ggplot2::theme(
         plot.title = ggplot2::element_text(face = "bold", size = 13),
@@ -402,4 +307,8 @@ run_case_report_suppfigS4_abc_only_figure <- function(
 # backward-compatible alias
 run_case_report_abc_only_figure <- run_case_report_suppfigS4_abc_only_figure
 
-res <- run_case_report_suppfigS4_abc_only_figure(verbose = TRUE)
+# Example usage:
+# source("00_setup.R")
+# source("16_SuppFigS4_CaseReport_ABC_Only_minimal_fixed.R")
+
+ res <- run_case_report_suppfigS4_abc_only_figure(verbose = TRUE)
